@@ -7,52 +7,77 @@ import org.apache.http.HttpException;
 import com.alibaba.fastjson.JSONObject;
 import com.gate.rest.stock.IStockRestApi;
 import com.gate.rest.stock.impl.StockRestApi;
-
+import com.gate.rest.manager.*;
+import com.gate.rest.constdefinition.*;
+import com.gate.rest.util.*;
 
 public class StockClient {
-
 	public static void main(String[] args) throws HttpException, IOException {
+		OperationManager opermanager = new OperationManager();
+		opermanager.initOperationFlags(args);
 
+		System.out.println("================================================================");
 
-		String query_url = "https://data.gateio.life";
-		String trade_url = "https://api.gateio.life";
-
-
+		String query_url = "https://data.gateapi.io";
+		String trade_url = "https://data.gateapi.io";
 		IStockRestApi stockGet = new StockRestApi(query_url);
-
 		IStockRestApi stockPost = new StockRestApi(trade_url);
 
 		// All trading Pairs
-		 String pairs = stockGet.pairs();
-		 System.out.println(pairs);
+		if (opermanager.isOperAllowed(OperType.PAIRS.getOpername())) {
+			System.out.println("get pairs");
+			String pairs = stockGet.pairs();
+			//System.out.println(pairs);
+		}
 
 		// Market Info
-		// String marketinfo = stockGet.marketinfo();
-		// System.out.println(marketinfo);
+		if (opermanager.isOperAllowed(OperType.MARCKETINFO.getOpername())) {
+			System.out.println("get marcketinfo");
+			String marketinfo = stockGet.marketinfo();
+			//System.out.println(marketinfo);
+		}
 
 		// Market Details
-		// String marketlist = stockGet.marketlist();
-		// System.out.println(marketlist);
+		if (opermanager.isOperAllowed(OperType.MARCKETLIST.getOpername())) {
+			System.out.println("get marckelist");
+			String marketlist = stockGet.marketlist();
+//			System.out.println(marketlist);
+		}
 
 		// Tickers
-//		 String tickers = stockGet.tickers();
-//		 System.out.println(tickers);
+		if (opermanager.isOperAllowed(OperType.TICKERS.getOpername())) {
+			System.out.println("get tickers");
+			String tickers = stockGet.tickers();
+//			System.out.println(tickers);
+		}
 
-		// Ticker
-		// String ticker = stockGet.ticker("eth_btc");
-		// System.out.println(ticker);
+		// eth-btc ticker
+		if (opermanager.isOperAllowed(OperType.ETHBTCTICKER.getOpername())) {
+			System.out.println("get eth-btc ticker");
+			String ethbtcticker = stockGet.ticker("eth_btc");
+//			System.out.println(ethbtcticker);
+		}
 
-		// Depth
-		// String orderBook = stockGet.orderBook("eth_btc");
-		// System.out.println(orderBook);
+		// eth-btc depth
+		if (opermanager.isOperAllowed(OperType.ETHBTCDEPTH.getOpername())) {
+			System.out.println("get eth-btc depth");
+			String ethbtcdepth = stockGet.orderBook("eth_btc");
+//			System.out.println(ethbtcdepth);
+		}
 
-		// Trade History
-		// String tradeHistory = stockGet.tradeHistory("eth_btc");
-		// System.out.println(tradeHistory);
+		// eth-btc history
+		if (opermanager.isOperAllowed(OperType.ETHBTCHISTORY.getOpername())) {
+			System.out.println("get eth-btc history");
+			String tradeHistory = stockGet.tradeHistory("eth_btc");
+			System.out.println(tradeHistory);
+		}
 
 		// Get account fund balances
-//		 String balance = stockPost.balance();
-//		 System.out.println(balance);
+//		if (opermanager.isOperAllowed(OperType.BALANCE.getOpername())) {
+//			System.out.println("get account fund balances");
+//			String balance = stockPost.balance();
+////			System.out.println(balance);
+//		}
 
 		// get deposit address
 		// String depositAddress = stockPost.depositAddress("btc");
@@ -95,5 +120,7 @@ public class StockClient {
 		// String withdraw = stockPost.withdraw("btc","99","your addr");
 		// System.out.println(withdraw);
 
+		System.out.println("================================================================");
+		System.out.println("THIS IS THE END!!");
 	}
 }

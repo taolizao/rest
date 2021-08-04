@@ -26,5 +26,4 @@ public interface IStockRestApi {
 		public String openOrders() throws HttpException, IOException;
 		public String myTradeHistory(String currencyPair,String orderNumber) throws HttpException, IOException;
 		public String withdraw(String currency,String amount, String address) throws HttpException, IOException;
-
 }

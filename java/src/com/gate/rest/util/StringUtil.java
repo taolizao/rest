@@ -1,4 +1,4 @@
-package com.gate.rest;
+package com.gate.rest.util;
 
 public class StringUtil {
 

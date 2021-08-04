@@ -1,4 +1,4 @@
-package com.gate.rest;
+package com.gate.rest.manager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,8 +41,6 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
 import org.json.JSONObject;
-
-
 
 public class HttpUtilManager {
 	
